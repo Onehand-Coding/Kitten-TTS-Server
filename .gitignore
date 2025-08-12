@@ -1,0 +1,41 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+.venv/
+venv/
+.env
+
+# IDE/editor
+.idea/
+.vscode/
+*.sublime-*
+
+# Packaging/Build
+build/
+dist/
+*.egg-info/
+.eggs/
+.hatch/
+
+# Test/coverage
+.pytest_cache/
+.coverage
+coverage.xml
+htmlcov/
+
+# Project runtime data
+logs/
+outputs/
+model_cache/
+hf_cache/
+logs\tts_server.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Config files
+config.yaml

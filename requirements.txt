@@ -10,8 +10,8 @@ soundfile
 numpy
 huggingface_hub
 phonemizer
-misaki[en]>=0.9.4
 espeakng_loader==0.2.0
+#misaki[en]>=0.9.4
 
 # Configuration & Utilities
 PyYAML
@@ -29,3 +29,8 @@ librosa
 praat-parselmouth
 torch
 torchaudio
+
+
+#pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cpu
+#pip install https://github.com/KittenML/KittenTTS/releases/download/0.1/kittentts-0.1.0-py3-none-any.whl
+
