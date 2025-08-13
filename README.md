@@ -87,7 +87,7 @@ Perfect for users seeking Piper's offline capabilities with better performance o
     *   A primary `/tts` endpoint offering full control over all generation parameters.
     *   An OpenAI-compatible `/v1/audio/speech` endpoint for seamless integration into existing workflows.
 *   **🔧 Easy Configuration:**
-    *   All settings are managed through a single `config.yaml` file.
+*   All settings are managed through a single `configs/config.yaml` file.
     *   The server automatically creates a default config on the first run.
 *   **💾 UI State Persistence:** The web interface remembers your last-used text, voice, and settings to streamline your workflow.
 *   **🐳 Docker Support:** Easy, reproducible deployment for both CPU and GPU via Docker Compose.
@@ -226,7 +226,7 @@ pip install -r requirements-nvidia.txt
     ```
     The output must be `CUDA available: True`.
 
-2.  **Update your configuration** by editing the `config.yaml` file:
+2.  **Update your configuration** by editing the `configs/config.yaml` file:
     ```yaml
     tts_engine:
       device: auto  # Or "cuda", or "gpu"
@@ -376,7 +376,7 @@ docker compose -f docker-compose-cpu.yml up -d --build
 
 *   **Build-time Argument:** The `Dockerfile` uses a `RUNTIME` argument (`nvidia` or `cpu`) to conditionally install the correct Python packages, creating an optimized image for your hardware.
 *   **Persistent Data:** The `docker-compose` files use Docker volumes to persist your important data on your host machine, even if the container is removed:
-    *   `./config.yaml`: Your main server configuration file.
+*   `./configs/config.yaml`: Your main server configuration file.
     *   `./outputs`: All generated audio files are saved here.
     *   `./logs`: Server log files for troubleshooting.
     *   `hf_cache` (Named Volume): Persists the downloaded Hugging Face models, saving significant time on rebuilds.
@@ -454,7 +454,7 @@ Use this for drop-in compatibility with scripts expecting OpenAI's TTS API struc
 
 ## ⚙️ Configuration
 
-All server settings are managed in the `config.yaml` file. It's created automatically on first launch if it doesn't exist.
+All server settings are managed in the `configs/config.yaml` file. It's created automatically on first launch if it doesn't exist.
 
 **Key Settings:**
 *   `server.host`, `server.port`: Network settings.
@@ -472,7 +472,7 @@ All server settings are managed in the `config.yaml` file. It's created automati
 *   **"No module named 'soundfile'" or Audio Errors on Linux:**
     *   The underlying system library is likely missing. Run `sudo apt install libsndfile1`.
 *   **"Port already in use" Error:**
-    *   Another application is using port 8005. Stop that application or change the port in `config.yaml` (e.g., `port: 8006`) and restart the server.
+*   Another application is using port 8005. Stop that application or change the port in `configs/config.yaml` (e.g., `port: 8006`) and restart the server.
 
 ## 🙏 Acknowledgements & Credits
 

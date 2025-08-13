@@ -42,8 +42,8 @@ def get_project_root(start_path=None):
 
 # --- File Path Constants ---
 PROJECT_ROOT = get_project_root() # Find the project root directory
-# Defines the primary configuration file name.
-CONFIG_FILE_PATH = PROJECT_ROOT / "config.yaml"
+# Defines the primary configuration file path within the dedicated configs directory.
+CONFIG_FILE_PATH = PROJECT_ROOT / "configs" / "config.yaml"
 
 # --- Default Directory Paths ---
 # These paths are used if not specified in config.yaml and are created if they don't exist
@@ -360,6 +360,13 @@ class YamlConfigManager:
         """
         # Prepare the configuration for saving (e.g., convert Path objects to strings).
         prepared_config_for_yaml = self._prepare_config_for_saving(config_dict_to_save)
+        # Ensure configuration directory exists before writing to the YAML file.
+        try:
+            CONFIG_FILE_PATH.parent.mkdir(parents=True, exist_ok=True)
+        except Exception as mkdir_error:
+            logger.warning(
+                f"Could not create config directory {CONFIG_FILE_PATH.parent}: {mkdir_error}"
+            )
 
         temp_file = CONFIG_FILE_PATH.with_suffix(CONFIG_FILE_PATH.suffix + ".tmp")
         backup_file = CONFIG_FILE_PATH.with_suffix(CONFIG_FILE_PATH.suffix + ".bak")

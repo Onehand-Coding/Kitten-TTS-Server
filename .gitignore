@@ -38,4 +38,4 @@ logs\tts_server.log
 Thumbs.db
 
 # Config files
-config.yaml
+configs/config.yaml

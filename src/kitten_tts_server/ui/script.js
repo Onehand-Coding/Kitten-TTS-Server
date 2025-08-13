@@ -670,7 +670,7 @@ document.addEventListener('DOMContentLoaded', async function () {
 
     if (resetSettingsBtn) {
         resetSettingsBtn.addEventListener('click', async () => {
-            if (!confirm("Are you sure you want to reset ALL settings to their initial defaults? This will affect config.yaml and UI preferences. This action cannot be undone.")) return;
+            if (!confirm("Are you sure you want to reset ALL settings to their initial defaults? This will affect configs/config.yaml and UI preferences. This action cannot be undone.")) return;
             updateConfigStatus(resetSettingsBtn, configStatus, 'Resetting settings...', 'info', 0, false);
             try {
                 const response = await fetch(`${API_BASE_URL}/reset_settings`, {
