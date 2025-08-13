@@ -118,7 +118,7 @@ git clone https://github.com/Onehand-Coding/Kitten-TTS-Server.git
 cd Kitten-TTS-Server
 ```
 
-### 2) Create and activate a virtual environment
+### 2) Create a virtual environment note the python version
 
 ```bash
 uv venv --python=python3.9
@@ -143,7 +143,7 @@ GPU support (CUDA):
 # First install GPU extras for ONNX Runtime
 uv sync --extra gpu
 
-# Then install CUDA-enabled PyTorch wheels appropriate for your CUDA version
+# Then install CUDA-enabled PyTorch wheels appropriate for your CUDA version(eg,. cu121)
 uv pip install --index-url https://download.pytorch.org/whl/cu121 torch torchvision torchaudio
 ```
 
@@ -231,7 +231,7 @@ All server settings are managed in the `configs/config.yaml` file. It's created 
 
 *   **Core Model:** This project is powered by the **[KittenTTS model](https://github.com/KittenML/KittenTTS)** created by **[KittenML](https://github.com/KittenML)**. Our work adds a high-performance server and UI layer on top of their excellent lightweight model.
 *   **Core Libraries:** FastAPI, Uvicorn, ONNX Runtime, PyTorch, Hugging Face Hub, Phonemizer.
-*   **UI Inspiration:** The UI/server architecture is inspired by our previous work on the [Chatterbox-TTS-Server](https://github.com/devnen/Chatterbox-TTS-Server).
+*   **Thanks to:** Original creator (https://github.com/devnen/Chatterbox-TTS-Server)
 
 ## 📄 License
 

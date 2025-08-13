@@ -24,6 +24,7 @@ dependencies = [
     "huggingface_hub",
     "phonemizer",
     "espeakng_loader==0.2.0",
+    "misaki[en]>=0.9.4",
 
     # Configuration & Utilities
     "PyYAML",
