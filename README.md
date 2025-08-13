@@ -33,19 +33,9 @@ We solve the complexity of setting up and running the model by offering:
 *   **Cross-platform support** for Windows and Linux, with clear setup instructions.
 *   Simple local install (no Docker files in this repo).
 
-## 🍓 Raspberry Pi & Edge Device Support
-
-The ultra-lightweight nature of the KittenTTS model and the efficiency of this server make it a perfect candidate for running on single-board computers (SBCs) and other edge devices.
-
-*   ✅ **Raspberry Pi 5 (RP5):** Confirmed to run with **excellent performance**. The server is fast and responsive, easily handling requests from other devices on the same local network (LAN). This makes it ideal for local network services, home automation, and other DIY projects.
-
-*   ⏳ **Raspberry Pi 4 (RP4):** Testing is currently in progress. Not working on the 32-bit Raspberry Pi OS.
-
-To install, simply follow the standard **Linux installation guide** provided in this README.
-
 ## 🔥 Optional GPU Acceleration
 
-By default the server runs on CPU-only dependencies for broad compatibility. If you have an NVIDIA GPU and want acceleration, install the optional GPU extras described below.
+If you have an NVIDIA GPU and want acceleration, install the optional GPU extras described below.
 
 ## 🔄 Alternative to Piper TTS
 
@@ -89,101 +79,33 @@ Perfect for users seeking Piper's offline capabilities with better performance o
 ## 🔩 System Prerequisites
 
 *   **Operating System:** Windows 10/11 (64-bit) or Linux (Debian/Ubuntu recommended).
-*   **Python:** Version 3.9–3.12
+*   **Python:** Version 3.9
 *   **Git:** For cloning the repository.
 *   **eSpeak NG:** This is a **required** dependency for text phonemization.
     *   **Windows:** See installation guide below.
     *   **Linux:** `sudo apt install espeak-ng`
-*   **Raspberry Pi:**
-    *   Raspberry Pi 5
-    *   Raspberry Pi 4      
 *   **(For GPU Acceleration, optional):**
     *   An **NVIDIA GPU** with CUDA support.
 *   **(For Linux Only):**
     *   `libsndfile1`: Audio library needed by `soundfile`. Install via `sudo apt install libsndfile1`.
     *   `ffmpeg`: For robust audio operations. Install via `sudo apt install ffmpeg`.
+*   **UV** For ease of installation and package management. [uv](https://github.com/astral-sh/uv) installed (`pip install uv` or `curl -LsSf https://astral.sh/uv/install.sh | sh`)
 
 ## 💻 Running the Server
-
-## ▶️ Running the Server
 
 **Important: First-Run Model Download**
 The first time you start the server, it will automatically download the KittenTTS model (~25MB) from Hugging Face. This is a one-time process. Subsequent launches will be instant.
 
-1.  **Activate the virtual environment** (if not already active).
-    *   Windows: `.\venv\Scripts\activate`
-    *   Linux: `source venv/bin/activate`
-
-2.  **Run the server:**
+1.  **Run the server:**
     ```bash
-    # If installed in editable mode: use module entry point
-    python -m kitten_tts_server
-
-    # Or the CLI script (installed via console script)
-    meow
+    uv run meow
     ```
 
-3.  The server will start and automatically open the Web UI in your default browser.
+2.  The server will start and automatically open the Web UI in your default browser.
     *   **Web UI:** `http://localhost:8005`
     *   **API Docs:** `http://localhost:8005/docs`
 
-4.  **To stop the server:** Press `CTRL+C` in the terminal.
-
-### **Raspberry Pi 4 & 5 Installation (CPU-Only)**
-
-KittenTTS runs excellently on Raspberry Pi devices, making it ideal for local network services and DIY projects. However, installation requirements vary significantly between Pi models due to CPU architecture differences.
-
-#### **Raspberry Pi 5 - Full Support ✅**
-
-**Raspberry Pi 5 works out-of-the-box** with the standard Linux installation guide above. No special steps required!
-
-**Tested Configuration:**
-- **Hardware:** Raspberry Pi 5 Model B Rev 1.0
-- **OS:** Debian GNU/Linux 12 (bookworm) 64-bit
-- **Architecture:** aarch64 (ARM64)
-- **Python:** 3.11
-- **Memory:** 4GB RAM
-- **Installation:** Follow the standard [Linux Installation](#linux-installation) guide exactly
-
-**Installation Steps:**
-```bash
-# Step 1: Install system dependencies
-sudo apt update && sudo apt upgrade -y
-sudo apt install -y espeak-ng libsndfile1 ffmpeg python3-pip python3-venv git
-
-# Step 2: Set up Python environment
-python -m venv venv
-source venv/bin/activate
-
-# Step 3: Install Python dependencies
-pip install -r requirements.txt
-
-# Step 4: Start the server
-python server.py
-```
-
-> **⏱️ Important:** During the `pip install -r requirements.txt` step, some Python packages (especially audio processing libraries like `librosa`, `praat-parselmouth`, and others) may need to be compiled from source on ARM architecture. This process can take **15-30 minutes** depending on your SD card speed and system load. This is normal - let it complete without interruption.
-
-#### **Raspberry Pi 4 - Limited Support ⚠️**
-
-**Raspberry Pi 4 support is currently in development** due to complex dependency compilation issues on 32-bit ARM architecture.
-
-**Known Technical Challenges:**
-- **ONNX Runtime:** No official ARM wheels available on PyPI
-- **PyTorch Ecosystem:** Limited pre-built wheel availability for armv7l
-- **NLP Dependencies:** SpaCy and related libraries fail to compile due to architecture detection issues
-- **Audio Processing:** Some native audio libraries require manual compilation
-
-**Current Status:**
-- ✅ **64-bit Raspberry Pi OS:** May work with standard installation (limited testing)  
-- ⚠️ **32-bit Raspberry Pi OS:** Requires complex manual dependency resolution
-- 🔧 **Alternative Solutions:** Being developed for core functionality
-
-**For Raspberry Pi 4 Users:**
-We recommend upgrading to **64-bit Raspberry Pi OS** if possible, as this significantly improves compatibility with modern Python packages. For users requiring 32-bit support, please check our [GitHub Issues](link-to-issues) for the latest progress updates and community-contributed solutions.
-
-**Alternative Recommendation:**
-For the best Raspberry Pi TTS experience, we strongly recommend using a **Raspberry Pi 5** with the standard 64-bit OS, which provides excellent performance and full compatibility.
+3.  **To stop the server:** Press `CTRL+C` in the terminal.
 
 ## 🧰 Installation
 
@@ -192,24 +114,14 @@ We recommend using `uv` for fast, reliable installs. Pip also works.
 ### 1) Clone the repository
 
 ```bash
-git clone https://github.com/devnen/Kitten-TTS-Server.git
+git clone https://github.com/Onehand-Coding/Kitten-TTS-Server.git
 cd Kitten-TTS-Server
 ```
 
 ### 2) Create and activate a virtual environment
 
-Using uv (recommended):
-
 ```bash
-uv venv
-source .venv/bin/activate  # Windows: .venv\Scripts\activate
-```
-
-Or with Python venv:
-
-```bash
-python -m venv venv
-source venv/bin/activate  # Windows: venv\Scripts\activate
+uv venv --python=python3.9
 ```
 
 ### 3) Install eSpeak NG (Required)
@@ -219,21 +131,20 @@ source venv/bin/activate  # Windows: venv\Scripts\activate
 
 ### 4) Install the package
 
-CPU-only (default):
+CPU-only :
 
 ```bash
-uv pip install -e .        # or: pip install -e .
-# Alternatively, explicitly: uv pip install -e .[cpu]
+uv sync --extra cpu
 ```
 
-Optional GPU support (CUDA):
+GPU support (CUDA):
 
 ```bash
-# First install CUDA-enabled PyTorch wheels appropriate for your CUDA version
-pip install --index-url https://download.pytorch.org/whl/cu121 torch torchvision torchaudio
+# First install GPU extras for ONNX Runtime
+uv sync --extra gpu
 
-# Then install GPU extras for ONNX Runtime
-uv pip install -e .[gpu]   # or: pip install -e .[gpu]
+# Then install CUDA-enabled PyTorch wheels appropriate for your CUDA version
+uv pip install --index-url https://download.pytorch.org/whl/cu121 torch torchvision torchaudio
 ```
 
 ## 💡 Usage Guide
