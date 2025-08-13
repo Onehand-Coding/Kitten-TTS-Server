@@ -89,7 +89,7 @@ Perfect for users seeking Piper's offline capabilities with better performance o
 *   **(For Linux Only):**
     *   `libsndfile1`: Audio library needed by `soundfile`. Install via `sudo apt install libsndfile1`.
     *   `ffmpeg`: For robust audio operations. Install via `sudo apt install ffmpeg`.
-*   **UV** For ease of installation and package management. [uv](https://github.com/astral-sh/uv) installed (`pip install uv` or `curl -LsSf https://astral.sh/uv/install.sh | sh`)
+*   **UV** For ease of installation and package management. [uv](https://github.com/astral-sh/uv) can be installed using (`pip install uv` or `curl -LsSf https://astral.sh/uv/install.sh | sh`)
 
 ## 💻 Running the Server
 
@@ -118,10 +118,10 @@ git clone https://github.com/Onehand-Coding/Kitten-TTS-Server.git
 cd Kitten-TTS-Server
 ```
 
-### 2) Create a virtual environment note the python version
+### 2) Create a virtual environment
 
 ```bash
-uv venv --python=python3.9
+uv venv --python=python3.9 # note the python version
 ```
 
 ### 3) Install eSpeak NG (Required)
