@@ -1,17 +1,15 @@
-# Kitten TTS Server: High-Performance, Lightweight TTS with API and GPU Acceleration
+# Kitten TTS Server: Lightweight TTS with API and Web UI
 
-**Self-host the ultra-lightweight [KittenTTS model](https://github.com/KittenML/KittenTTS) with this enhanced API server. Features an intuitive Web UI, a flexible API, large text processing for audiobooks, and uniquely, high-performance GPU acceleration.**
+**Self-host the ultra-lightweight [KittenTTS model](https://github.com/KittenML/KittenTTS) with this enhanced API server. Features an intuitive Web UI, a flexible API, and large-text processing for audiobooks. Optional GPU acceleration is available.**
 
-This server provides a robust, user-friendly, and powerful interface for the kitten-tts engine, an open-source, realistic text-to-speech model with just 15 million parameters. This project significantly enhances the original model by adding a full-featured server, an easy-to-use UI, and an optimized inference pipeline for hardware ranging from NVIDIA GPUs to CPUs and even the Raspberry Pi 5 (RP5) and Raspberry Pi 4 (RP4).
+This server provides a robust, user-friendly, and powerful interface for the kitten-tts engine, an open-source, realistic text-to-speech model with just 15 million parameters. This project enhances the original model by adding a full-featured server, an easy-to-use UI, and optimized CPU-first inference, with optional GPU support via extras.
 
 [![Project Link](https://img.shields.io/badge/GitHub-devnen/Kitten--TTS--Server-blue?style=for-the-badge&logo=github)](https://github.com/devnen/Kitten-TTS-Server)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](LICENSE)
-[![Python Version](https://img.shields.io/badge/Python-3.10+-blue.svg?style=for-the-badge)](https://www.python.org/downloads/)
+[![Python Version](https://img.shields.io/badge/Python-3.9%2B-blue.svg?style=for-the-badge)](https://www.python.org/downloads/)
 [![Framework](https://img.shields.io/badge/Framework-FastAPI-green.svg?style=for-the-badge)](https://fastapi.tiangolo.com/)
 [![Model Source](https://img.shields.io/badge/Model-KittenML/KittenTTS-orange.svg?style=for-the-badge)](https://github.com/KittenML/KittenTTS)
-[![Docker](https://img.shields.io/badge/Docker-Supported-blue.svg?style=for-the-badge)](https://www.docker.com/)
 [![Web UI](https://img.shields.io/badge/Web_UI-Included-4285F4?style=for-the-badge&logo=googlechrome&logoColor=white)](#)
-[![CUDA Compatible](https://img.shields.io/badge/NVIDIA_CUDA-Compatible-76B900?style=for-the-badge&logo=nvidia&logoColor=white)](https://developer.nvidia.com/cuda-zone)
 [![API](https://img.shields.io/badge/OpenAI_Compatible_API-Ready-000000?style=for-the-badge&logo=openai&logoColor=white)](https://platform.openai.com/docs/api-reference)
 
 <div align="center">
@@ -28,12 +26,12 @@ The [KittenTTS model by KittenML](https://github.com/KittenML/KittenTTS) provide
 We solve the complexity of setting up and running the model by offering:
 
 *   A **modern Web UI** for easy experimentation, preset loading, and speed adjustment.
-*   **True GPU Acceleration** for NVIDIA GPUs, a feature not present in the original implementation.
+*   Optional **GPU Acceleration** for NVIDIA GPUs via extras (see installation).
 *   **Large Text Handling & Audiobook Generation:** Intelligently splits long texts into manageable chunks, processes them sequentially, and seamlessly concatenates the audio. Perfect for creating complete audiobooks.
 *   **A flexible, dual-API system** including a simple endpoint and an OpenAI-compatible endpoint for easy integration.
 *   **Built-in Voices:** A fixed list of 8 ready-to-use voices for consistent and reliable output.
 *   **Cross-platform support** for Windows and Linux, with clear setup instructions.
-*   **Docker support** for easy, reproducible containerized deployment.
+*   Simple local install (no Docker files in this repo).
 
 ## 🍓 Raspberry Pi & Edge Device Support
 
@@ -45,15 +43,9 @@ The ultra-lightweight nature of the KittenTTS model and the efficiency of this s
 
 To install, simply follow the standard **Linux installation guide** provided in this README.
 
-## 🔥 GPU Acceleration included
+## 🔥 Optional GPU Acceleration
 
-A standout feature of this server is the implementation of **high-performance GPU acceleration**, a capability not available in the original KittenTTS project. While the base model is CPU-only, this server unlocks the full potential of your hardware.
-
-*   **Optimized ONNX Runtime Pipeline:** We leverage `onnxruntime-gpu` to move the entire inference process to your NVIDIA graphics card.
-*   **Eliminated I/O Bottlenecks:** The server uses advanced **I/O Binding**. This technique pre-allocates memory directly on the GPU for both model inputs and outputs, drastically reducing the latency caused by copying data between system RAM and the GPU's VRAM.
-*   **True Performance Gains:** This isn't just running the model on the GPU; it's an optimized pipeline designed to minimize latency and maximize throughput, making real-time generation significantly faster than on CPU.
-
-This enhancement transforms KittenTTS from a lightweight-but-modest engine into a high-speed synthesis powerhouse.
+By default the server runs on CPU-only dependencies for broad compatibility. If you have an NVIDIA GPU and want acceleration, install the optional GPU extras described below.
 
 ## 🔄 Alternative to Piper TTS
 
@@ -72,7 +64,7 @@ Perfect for users seeking Piper's offline capabilities with better performance o
 ## ✨ Key Features of This Server
 
 *   **🚀 Ultra-Lightweight Model:** Powered by the `KittenTTS` ONNX model, which is under 25MB.
-*   ⚡ **True GPU Acceleration:** Full support for **NVIDIA (CUDA)** via an optimized `onnxruntime-gpu` pipeline with I/O Binding for maximum performance.
+*   ⚡ **Optional GPU Acceleration:** Enable NVIDIA (CUDA) support via `onnxruntime-gpu` by installing the GPU extra.
 *   **📚 Large Text & Audiobook Generation:**
     *   Automatically handles long texts by intelligently splitting them based on sentence boundaries.
     *   Processes each chunk individually and seamlessly concatenates the resulting audio.
@@ -90,14 +82,14 @@ Perfect for users seeking Piper's offline capabilities with better performance o
 *   All settings are managed through a single `configs/config.yaml` file.
     *   The server automatically creates a default config on the first run.
 *   **💾 UI State Persistence:** The web interface remembers your last-used text, voice, and settings to streamline your workflow.
-*   **🐳 Docker Support:** Easy, reproducible deployment for both CPU and GPU via Docker Compose.
+*   
 
 ---
 
 ## 🔩 System Prerequisites
 
 *   **Operating System:** Windows 10/11 (64-bit) or Linux (Debian/Ubuntu recommended).
-*   **Python:** Version 3.10 or later.
+*   **Python:** Version 3.9–3.12
 *   **Git:** For cloning the repository.
 *   **eSpeak NG:** This is a **required** dependency for text phonemization.
     *   **Windows:** See installation guide below.
@@ -105,136 +97,13 @@ Perfect for users seeking Piper's offline capabilities with better performance o
 *   **Raspberry Pi:**
     *   Raspberry Pi 5
     *   Raspberry Pi 4      
-*   **(For GPU Acceleration):**
+*   **(For GPU Acceleration, optional):**
     *   An **NVIDIA GPU** with CUDA support.
 *   **(For Linux Only):**
     *   `libsndfile1`: Audio library needed by `soundfile`. Install via `sudo apt install libsndfile1`.
     *   `ffmpeg`: For robust audio operations. Install via `sudo apt install ffmpeg`.
 
-## 💻 Installation and Setup
-
-This project uses specific dependency files and a clear process to ensure a smooth, one-command installation for your hardware.
-
-**1. Clone the Repository**
-```bash
-git clone https://github.com/devnen/Kitten-TTS-Server.git
-cd Kitten-TTS-Server
-```
-
-**2. Create and Activate a Python Virtual Environment**
-This is crucial to avoid conflicts with other Python projects.
-
-*   **Windows (PowerShell):**
-    ```powershell
-    python -m venv venv
-    .\venv\Scripts\activate
-    ```
-    If you see an error about execution policies, run:
-    `Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser` and try activating again.
-
-*   **Linux (Bash):**
-    ```bash
-    python3 -m venv venv
-    source venv/bin/activate
-    ```
-    Your command prompt should now start with `(venv)`.
-
-**3. Install eSpeak NG (Required)**
-
-*   **Windows:**
-    1.  Download the installer from the [eSpeak NG Releases page](https://github.com/espeak-ng/espeak-ng/releases/latest). Look for the file named `espeak-ng-X.XX-x64.msi`.
-    2.  Run the installer with default settings.
-    3.  **Important:** Restart your terminal (PowerShell/CMD) after installation for the changes to take effect.
-
-*   **Linux (Ubuntu/Debian):**
-    ```bash
-    sudo apt update && sudo apt install -y espeak-ng
-    ```
-
-**4. Install Python Dependencies**
-
-Choose one of the following paths based on your hardware.
-
----
-
-### **Option 1: CPU-Only Installation**
-This is the simplest path and works on any machine.
-
-```bash
-# Make sure your (venv) is active
-pip install --upgrade pip
-pip install -r requirements.txt
-```
-
----
-
-### **Option 2: NVIDIA GPU Installation (Recommended for Performance)**
-This method ensures all necessary CUDA libraries are correctly installed within your virtual environment for a hassle-free setup.
-
-```bash
-# Make sure your (venv) is active
-pip install --upgrade pip
-
-# Step 1: Install the GPU-enabled ONNX Runtime
-pip install onnxruntime-gpu
-
-# Step 2: Install PyTorch with CUDA support. This command also brings the
-# necessary CUDA and cuDNN .dll files that onnxruntime-gpu needs.
-pip install torch torchaudio --index-url https://download.pytorch.org/whl/cu121
-
-# Step 3: Install the remaining dependencies from the requirements file
-pip install -r requirements-nvidia.txt
-```
-
-**After installation, verify that PyTorch can see your GPU:**
-```bash
-python -c "import torch; print(f'PyTorch version: {torch.__version__}'); print(f'CUDA available: {torch.cuda.is_available()}'); print(f'Device name: {torch.cuda.get_device_name(0) if torch.cuda.is_available() else None}')"
-```
-If `CUDA available:` shows `True`, your setup is correct!
-
----
-
-### **Option 3: Upgrading from CPU to GPU**
-
-If you initially installed the server for CPU-only usage and now want to enable GPU acceleration, follow these steps to upgrade your environment safely.
-
-```bash
-# Make sure your (venv) is active
-pip install --upgrade pip
-
-# Step 1: Uninstall the CPU-only versions of onnxruntime and torch.
-# This is critical to prevent conflicts with the GPU packages.
-pip uninstall onnxruntime torch torchaudio -y
-
-# Step 2: Install the GPU-enabled ONNX Runtime.
-pip install onnxruntime-gpu
-
-# Step 3: Install PyTorch with CUDA support. This command also brings the
-# necessary CUDA and cuDNN .dll files that onnxruntime-gpu needs.
-pip install torch torchaudio --index-url https://download.pytorch.org/whl/cu121
-
-# Step 4: Re-install from the nvidia requirements file to ensure all other
-# dependencies are correct and up to date.
-pip install -r requirements-nvidia.txt
-```
-
-**After upgrading, do the following:**
-
-1.  **Verify the installation** by running the same check from Option 2:
-    ```bash
-    python -c "import torch; print(f'CUDA available: {torch.cuda.is_available()}')"
-    ```
-    The output must be `CUDA available: True`.
-
-2.  **Update your configuration** by editing the `configs/config.yaml` file:
-    ```yaml
-    tts_engine:
-      device: auto  # Or "cuda", or "gpu"
-    ```
-
-3.  **Restart the server** for the changes to take effect. It will now use your NVIDIA GPU.
-
----
+## 💻 Running the Server
 
 ## ▶️ Running the Server
 
@@ -247,7 +116,11 @@ The first time you start the server, it will automatically download the KittenTT
 
 2.  **Run the server:**
     ```bash
-    python server.py
+    # If installed in editable mode: use module entry point
+    python -m kitten_tts_server
+
+    # Or the CLI script (installed via console script)
+    meow
     ```
 
 3.  The server will start and automatically open the Web UI in your default browser.
@@ -312,87 +185,56 @@ We recommend upgrading to **64-bit Raspberry Pi OS** if possible, as this signif
 **Alternative Recommendation:**
 For the best Raspberry Pi TTS experience, we strongly recommend using a **Raspberry Pi 5** with the standard 64-bit OS, which provides excellent performance and full compatibility.
 
-## 🐳 Docker Installation
+## 🧰 Installation
 
-Run Kitten-TTS-Server easily using Docker. The recommended method uses Docker Compose, which is pre-configured for both CPU and NVIDIA GPU deployment.
+We recommend using `uv` for fast, reliable installs. Pip also works.
 
-### Prerequisites
+### 1) Clone the repository
 
-*   [Docker](https://docs.docker.com/get-docker/) installed.
-*   [Docker Compose](https://docs.docker.com/compose/install/) installed (usually included with Docker Desktop).
-*   **(For GPU acceleration)**
-    *   An NVIDIA GPU.
-    *   Up-to-date NVIDIA drivers for your host operating system.
-    *   The [NVIDIA Container Toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html) installed.
-
-### Using Docker Compose (Recommended)
-
-This method uses the provided `docker-compose.yml` files to automatically build the correct image and manage the container, volumes, and configuration.
-
-**1. Clone the Repository**
 ```bash
 git clone https://github.com/devnen/Kitten-TTS-Server.git
 cd Kitten-TTS-Server
 ```
 
-**2. Start the Container Based on Your Hardware**
+### 2) Create and activate a virtual environment
 
-Choose one of the following commands:
-
-#### **For NVIDIA GPU (Recommended for Performance):**
-The default `docker-compose.yml` is configured for NVIDIA GPUs. It will build the image with full CUDA support.
+Using uv (recommended):
 
 ```bash
-docker compose up -d --build
+uv venv
+source .venv/bin/activate  # Windows: .venv\Scripts\activate
 ```
 
-#### **For CPU-only:**
-This uses a dedicated compose file that builds the image without GPU dependencies.
+Or with Python venv:
 
 ```bash
-docker compose -f docker-compose-cpu.yml up -d --build
+python -m venv venv
+source venv/bin/activate  # Windows: venv\Scripts\activate
 ```
 
-⭐ **Note:** The first time you run this, Docker will build the image and the server will download the KittenTTS model, which can take a few minutes. Subsequent starts will be much faster.
+### 3) Install eSpeak NG (Required)
 
-### 3. Access and Manage the Application
+- Windows: Install from releases; restart your terminal.
+- Linux (Debian/Ubuntu): `sudo apt update && sudo apt install -y espeak-ng libsndfile1 ffmpeg`
 
-*   **Access the Web UI:** Open your browser to `http://localhost:8005`
-*   **Access the API Docs:** `http://localhost:8005/docs`
+### 4) Install the package
 
-*   **View Logs:**
-    ```bash
-    # For GPU or CPU version
-    docker compose logs -f
-    ```
-
-*   **Stop the Container:**
-    ```bash
-    # This stops and removes the container but keeps your data volumes
-    docker compose down
-    ```
-
-### How It Works
-
-*   **Build-time Argument:** The `Dockerfile` uses a `RUNTIME` argument (`nvidia` or `cpu`) to conditionally install the correct Python packages, creating an optimized image for your hardware.
-*   **Persistent Data:** The `docker-compose` files use Docker volumes to persist your important data on your host machine, even if the container is removed:
-*   `./configs/config.yaml`: Your main server configuration file.
-    *   `./outputs`: All generated audio files are saved here.
-    *   `./logs`: Server log files for troubleshooting.
-    *   `hf_cache` (Named Volume): Persists the downloaded Hugging Face models, saving significant time on rebuilds.
-
-### Verify GPU Access (for NVIDIA users)
-
-After starting the GPU container, you can verify that Docker and the application can see your graphics card.
+CPU-only (default):
 
 ```bash
-# Check if the container can see the NVIDIA GPU
-docker compose exec kitten-tts-server nvidia-smi
-
-# Check if PyTorch inside the container can access CUDA
-docker compose exec kitten-tts-server python -c "import torch; print(f'CUDA available: {torch.cuda.is_available()}')"
+uv pip install -e .        # or: pip install -e .
+# Alternatively, explicitly: uv pip install -e .[cpu]
 ```
-If `CUDA available:` prints `True`, your GPU setup is working correctly
+
+Optional GPU support (CUDA):
+
+```bash
+# First install CUDA-enabled PyTorch wheels appropriate for your CUDA version
+pip install --index-url https://download.pytorch.org/whl/cu121 torch torchvision torchaudio
+
+# Then install GPU extras for ONNX Runtime
+uv pip install -e .[gpu]   # or: pip install -e .[gpu]
+```
 
 ## 💡 Usage Guide
 
@@ -466,9 +308,9 @@ All server settings are managed in the `configs/config.yaml` file. It's created 
 
 *   **Phonemizer / eSpeak Errors:**
     *   This is the most common issue. Ensure you have installed **eSpeak NG** correctly for your OS and **restarted your terminal** afterward. The server includes auto-detection logic for common install paths.
-*   **GPU Not Used / Falls Back to CPU:**
-    *   Follow the **NVIDIA GPU Installation** steps exactly. The most common cause is `torch` being installed without CUDA support.
-    *   Run the verification command from the installation guide to confirm `torch.cuda.is_available()` is `True`.
+*   **GPU Not Used (if you installed GPU extras):**
+    *   Ensure you installed CUDA-enabled PyTorch wheels and the `[gpu]` extra.
+    *   Verify with `python -c "import torch; print(torch.cuda.is_available())"`.
 *   **"No module named 'soundfile'" or Audio Errors on Linux:**
     *   The underlying system library is likely missing. Run `sudo apt install libsndfile1`.
 *   **"Port already in use" Error:**

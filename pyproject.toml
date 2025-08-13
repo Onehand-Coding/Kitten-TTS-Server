@@ -19,7 +19,6 @@ dependencies = [
     "uvicorn[standard]",
 
     # KittenTTS Core Dependencies
-    "onnxruntime<1.20",  # Pin to <1.20 for Python 3.9 compatibility
     "soundfile",
     "numpy",
     "huggingface_hub",
@@ -43,6 +42,14 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
+cpu = [
+    # CPU build of ONNX Runtime
+    "onnxruntime<1.20",
+]
+gpu = [
+    # GPU build of ONNX Runtime (CUDA-enabled)
+    "onnxruntime-gpu<1.20",
+]
 dev = [
     "pytest>=7,<9",
     "pytest-cov>=4,<6",
